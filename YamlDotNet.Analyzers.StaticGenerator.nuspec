@@ -3,6 +3,7 @@
 <package>
     <metadata minClientVersion="2.8">
         <id>Vecc.YamlDotNet.Analyzers.StaticGenerator</id>
+        <version>$PackageVersion$</version>
         <authors>YamlDotNet Contributors</authors>
         <description>Roslyn Code Generator that will generate a static context for use with YamlDotNet to support ahead-of-time and library trimming.</description>
         <summary>Static context generator for YamlDotNet.</summary>
