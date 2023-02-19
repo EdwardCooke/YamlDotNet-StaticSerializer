@@ -5,17 +5,13 @@ name: Publish Static Serializer
 on:
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+
       - name: Checkout aaubry/yamldotnet
         id: yamldotnet
         uses: actions/checkout@v3
@@ -25,13 +21,15 @@ jobs:
           fetch-depth: 0
           path: yamldotnet
           submodules: 'true'
+
       - name: Get current version
         id: version
         working-directory: yamldotnet
         run: |
-          VERSION=$(git tag -l --sort=-v:refname v* | head -n 1 | sed "s/^v//")
-          echo "Using $VERSION"
-          echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
+          $VERSION=(git tag -l --sort=-v:refname v*)[0].Replace("v", "")
+          write-host "Using $VERSION"
+          "PACKAGE_VERSION=$VERSION" | Add-Content $GITHUB_ENV
+
       - name: Install dotnet 3.1
         uses: actions/setup-dotnet@v3
         with:
@@ -46,14 +44,17 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
+
       - name: Build
         id: build
         working-directory: yamldotnet
         run: dotnet build -c Release YamlDotNet.sln
+
       - name: Test
         id: test
         working-directory: yamldotnet
         run: dotnet test -c Release --no-build YamlDotNet.sln
+
       - name: Pack
         id: pack
         working-directory: yamldotnet/YamlDotNet.Analyzers.StaticGenerator
@@ -61,6 +62,7 @@ jobs:
           -o ${GITHUB_WORKSPACE}/packed \
           -p:NuspecFile=${GITHUB_WORKSPACE}/YamlDotNet.Analyzers.StaticGenerator.nuspec \
           -p:Version=${PACKAGE_VERSION}
+
       - name: Debug1
         id: debug1
         run: printenv && ls ${GITHUB_WORKSPACE}/packed
