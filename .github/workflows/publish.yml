@@ -82,8 +82,10 @@ jobs:
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
-      - uses: ncipollo/release-action@v1
-        name: Create Release
-        id: createrelease
+      - name: Create a Release
+        uses: elgohr/Github-Release-Action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
-          name: ${{ env.PACKAGE_VERSION }}
+          title: ${{ env.PACKAGE_VERSION }}
+          
