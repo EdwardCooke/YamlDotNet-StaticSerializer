@@ -28,7 +28,7 @@ jobs:
         run: |
           $VERSION=(git tag -l --sort=-v:refname v*)[0].Replace("v", "")
           write-host "Using $VERSION"
-          "PACKAGE_VERSION=$VERSION" | Add-Content $GITHUB_ENV
+          "PACKAGE_VERSION=$VERSION" | Add-Content $ENV:GITHUB_ENV
 
       - name: Install dotnet 3.1
         uses: actions/setup-dotnet@v3
