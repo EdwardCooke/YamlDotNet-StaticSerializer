@@ -78,6 +78,6 @@ jobs:
       - name: Push
         id: push
         working-directory: packed
-        run: dotnet nuget push $(ls) --skip-duplicates --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push "*.nupkg" --skip-duplicate --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
