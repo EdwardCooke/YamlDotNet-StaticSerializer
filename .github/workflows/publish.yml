@@ -24,6 +24,7 @@ jobs:
           ref: master
           fetch-depth: 0
           path: yamldotnet
+          submodules: 'true'
       - name: Get current version
         id: version
         working-directory: yamldotnet
