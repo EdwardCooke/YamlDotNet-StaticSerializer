@@ -74,9 +74,10 @@ jobs:
             -o $GITHUB_WORKSPACE/packed \
             -p:NuspecFile=./YamlDotNet.Analyzers.StaticGenerator.nuspec \
             -p:PackageVersion=$PACKAGE_VERSION
-
-      - name: Debug1
-        id: debug1
-        run: |
-          printenv
-          ls $GITHUB_WORKSPACE/packed
+            
+      - name: Push
+        id: push
+        working-directory: packed
+        run: dotnet nuget push $(ls) --skip-duplicates --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
