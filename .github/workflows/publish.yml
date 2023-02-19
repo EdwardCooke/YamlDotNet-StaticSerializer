@@ -59,10 +59,12 @@ jobs:
         id: pack
         working-directory: yamldotnet/YamlDotNet.Analyzers.StaticGenerator
         run: dotnet pack YamlDotNet.Analyzers.StaticGenerator.csproj \
-          -o ${GITHUB_WORKSPACE}/packed \
-          -p:NuspecFile=${GITHUB_WORKSPACE}/YamlDotNet.Analyzers.StaticGenerator.nuspec \
-          -p:Version=${PACKAGE_VERSION}
+          -o $ENV:GITHUB_WORKSPACE/packed \
+          -p:NuspecFile=$ENV:GITHUB_WORKSPACE/YamlDotNet.Analyzers.StaticGenerator.nuspec \
+          -p:Version=$ENV:PACKAGE_VERSION
 
       - name: Debug1
         id: debug1
-        run: printenv && ls ${GITHUB_WORKSPACE}/packed
+        run: |
+          ls env:
+          ls $ENV:GITHUB_WORKSPACE/packed
