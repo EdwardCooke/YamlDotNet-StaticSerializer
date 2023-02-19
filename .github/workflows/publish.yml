@@ -74,10 +74,16 @@ jobs:
             -o $GITHUB_WORKSPACE/packed \
             -p:NuspecFile=./YamlDotNet.Analyzers.StaticGenerator.nuspec \
             -p:PackageVersion=$PACKAGE_VERSION
-            
+
       - name: Push
         id: push
         working-directory: packed
         run: dotnet nuget push "*.nupkg" --skip-duplicate --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+
+      - uses: ncipollo/release-action@v1
+        name: Create Release
+        id: createrelease
+        with:
+          name: ${{ env.PACKAGE_VERSION }}
