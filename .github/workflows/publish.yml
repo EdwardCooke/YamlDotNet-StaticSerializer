@@ -69,7 +69,7 @@ jobs:
           dotnet pack YamlDotNet.Analyzers.StaticGenerator.csproj \
             -o $GITHUB_WORKSPACE/packed \
             -p:NuspecFile=$GITHUB_WORKSPACE/YamlDotNet.Analyzers.StaticGenerator.nuspec \
-            -p:Version=$PACKAGE_VERSION
+            -p:PackageVersion=$PACKAGE_VERSION
 
       - name: Debug1
         id: debug1
