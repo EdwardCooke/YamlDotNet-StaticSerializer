@@ -65,10 +65,14 @@ jobs:
         run: |
           echo "Setting NuspecProperties in csproj file"
           sed -i '/<PropertyGroup>/a <NuspecProperties>PackageVersion=$(PackageVersion)<\/NuspecProperties>' YamlDotNet.Analyzers.StaticGenerator.csproj
+          
+          echo "Copying nuspec"
+          cp $GITHUB_WORKSPACE/YamlDotNet.Analyzers.StaticGenerator.nuspec .
+          
           echo "Packing"
           dotnet pack YamlDotNet.Analyzers.StaticGenerator.csproj \
             -o $GITHUB_WORKSPACE/packed \
-            -p:NuspecFile=$GITHUB_WORKSPACE/YamlDotNet.Analyzers.StaticGenerator.nuspec \
+            -p:NuspecFile=./YamlDotNet.Analyzers.StaticGenerator.nuspec \
             -p:PackageVersion=$PACKAGE_VERSION
 
       - name: Debug1
