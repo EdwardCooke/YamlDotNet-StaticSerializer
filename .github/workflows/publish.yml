@@ -82,10 +82,10 @@ jobs:
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
-      - name: Create a Release
-        uses: elgohr/Github-Release-Action@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-        with:
-          title: ${{ env.PACKAGE_VERSION }}
+#      - name: Create a Release
+#        uses: elgohr/Github-Release-Action@v4
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+#        with:
+#          title: ${{ env.PACKAGE_VERSION }}
           
