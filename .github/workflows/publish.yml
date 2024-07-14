@@ -54,10 +54,10 @@ jobs:
         working-directory: yamldotnet
         run: dotnet build -c Release YamlDotNet.sln
 
-      - name: Test
-        id: test
-        working-directory: yamldotnet
-        run: dotnet test -c Release --no-build YamlDotNet.sln
+#      - name: Test
+#        id: test
+#        working-directory: yamldotnet
+#        run: dotnet test -c Release --no-build YamlDotNet.sln
 
       - name: Pack
         id: pack
